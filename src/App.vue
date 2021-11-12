@@ -1,17 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <Header /> 
+
+<b-container class="bv-example-row">
+  <b-row>
+    <b-col sm ="6" offset= "3"></b-col>
+     <Box />
+  </b-row>
+</b-container>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import Box from './components/Box.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    Box
+  },
+
+data () {
+  return {
+    results: []
+  }
+},
+  mounted: function()
+{
+  fetch('http://localhost:3000/sampletable', 
+  {
+    method: 'get'
+  })
+  .then((response) => {
+     console.log(response.json())
+    return response.json()
+  })
+  .then((jsonData) => {
+    this.results = jsonData.results
+  })
   }
 }
 </script>
